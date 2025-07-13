@@ -100,7 +100,7 @@
     <Content Include="evaluation.html" />
     <Content Include="grades.html" />
     <Content Include="handbook.html" />
-    <Content Include="login.html" />
+    <Content Include="index.html" />
     <Content Include="messaging.html" />
     <Content Include="profile.html" />
     <Content Include="progress.html" />
