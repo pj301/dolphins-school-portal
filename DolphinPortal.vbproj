@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{C5E029B4-0B6F-44E4-9087-6D097741AD1D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DolphinPortal</RootNamespace>
+    <AssemblyName>DolphinPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44303</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>DolphinPortal.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>DolphinPortal.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin-dashboard.html" />
+    <Content Include="admission.html" />
+    <Content Include="billing.html" />
+    <Content Include="dashboard.html" />
+    <Content Include="documents.html" />
+    <Content Include="evaluation.html" />
+    <Content Include="grades.html" />
+    <Content Include="handbook.html" />
+    <Content Include="login.html" />
+    <Content Include="messaging.html" />
+    <Content Include="profile.html" />
+    <Content Include="progress.html" />
+    <Content Include="public\css\atlantis.css" />
+    <Content Include="public\css\atlantis.min.css" />
+    <Content Include="public\css\atlantis2.css" />
+    <Content Include="public\css\atlantis2.min.css" />
+    <Content Include="public\css\bootstrap.min.css" />
+    <Content Include="public\css\demo.css" />
+    <Content Include="public\css\fonts.css" />
+    <Content Include="public\css\fonts.min.css" />
+    <Content Include="public\fonts\flaticon\flaticon.css" />
+    <Content Include="public\fonts\flaticon\flaticon.html" />
+    <Content Include="public\fonts\flaticon\Flaticon.svg" />
+    <Content Include="public\fonts\fontawesome\fa-brands-400.svg" />
+    <Content Include="public\fonts\fontawesome\fa-regular-400.svg" />
+    <Content Include="public\fonts\fontawesome\fa-solid-900.svg" />
+    <Content Include="public\fonts\simple-line-icons\Simple-Line-Icons.svg" />
+    <Content Include="public\img\about-1.jpg" />
+    <Content Include="public\img\about-2.png" />
+    <Content Include="public\img\about-3.png" />
+    <Content Include="public\img\about-4.png" />
+    <Content Include="public\img\about-5.jpg" />
+    <Content Include="public\img\angelika.png" />
+    <Content Include="public\img\angelika1s.png" />
+    <Content Include="public\img\bg1.jpg" />
+    <Content Include="public\img\bg2.jpg" />
+    <Content Include="public\img\bg3.jpg" />
+    <Content Include="public\img\bowssco-logo.jpg" />
+    <Content Include="public\img\carousel-1.jpg" />
+    <Content Include="public\img\carousel-2.jpg" />
+    <Content Include="public\img\charles.png" />
+    <Content Include="public\img\charles1.png" />
+    <Content Include="public\img\charles1s.png" />
+    <Content Include="public\img\Dolphin-logo.png" />
+    <Content Include="public\img\edwin.png" />
+    <Content Include="public\img\edwin1.png" />
+    <Content Include="public\img\edwin1s.png" />
+    <Content Include="public\img\edwins.jpg" />
+    <Content Include="public\img\edwins1.jpg" />
+    <Content Include="public\img\edwins1.png" />
+    <Content Include="public\img\enrollment1.png" />
+    <Content Include="public\img\event-system.png" />
+    <Content Include="public\img\genesis.jpg" />
+    <Content Include="public\img\genesis.png" />
+    <Content Include="public\img\genesis1.png" />
+    <Content Include="public\img\genesis1s.png" />
+    <Content Include="public\img\gjfsi.png" />
+    <Content Include="public\img\GJFSI_Logo.png" />
+    <Content Include="public\img\header-1.png" />
+    <Content Include="public\img\IMG_7784.png" />
+    <Content Include="public\img\joel.png" />
+    <Content Include="public\img\joel1.png" />
+    <Content Include="public\img\joel1s.png" />
+    <Content Include="public\img\logo.jpg" />
+    <Content Include="public\img\logo.png" />
+    <Content Include="public\img\logo2.png" />
+    <Content Include="public\img\miwassco-logo.jpg" />
+    <Content Include="public\img\miwassco.jpg" />
+    <Content Include="public\img\miwassco1.png" />
+    <Content Include="public\img\moreno1.png" />
+    <Content Include="public\img\moreno1s.png" />
+    <Content Include="public\img\offer-1.jpg" />
+    <Content Include="public\img\offer-2.jpg" />
+    <Content Include="public\img\offer-3.jpg" />
+    <Content Include="public\img\offer-4.jpg" />
+    <Content Include="public\img\Organizational Structure Chart.png" />
+    <Content Include="public\img\peter.png" />
+    <Content Include="public\img\peter1.png" />
+    <Content Include="public\img\peter11.png" />
+    <Content Include="public\img\peter11s.png" />
+    <Content Include="public\img\peters.png" />
+    <Content Include="public\img\Ringhop.png" />
+    <Content Include="public\img\scclogo.png" />
+    <Content Include="public\img\service-1.jpg" />
+    <Content Include="public\img\service-2.jpg" />
+    <Content Include="public\img\service-3.jpg" />
+    <Content Include="public\img\service-4.jpg" />
+    <Content Include="public\img\service-5.jpg" />
+    <Content Include="public\img\service-6.jpg" />
+    <Content Include="public\img\service-item-bg.jpg" />
+    <Content Include="public\img\team-1.jpg" />
+    <Content Include="public\img\team-2.jpg" />
+    <Content Include="public\img\team-3.jpg" />
+    <Content Include="public\img\team-4.jpg" />
+    <Content Include="public\img\testimonial-1.jpg" />
+    <Content Include="public\img\testimonial-2.jpg" />
+    <Content Include="public\img\testimonial-3.jpg" />
+    <Content Include="public\img\towassco.png" />
+    <Content Include="public\img\watersystem.png" />
+    <Content Include="public\img\watersystem1.png" />
+    <Content Include="public\img\Wedding.PNG" />
+    <Content Include="public\js\atlantis.js" />
+    <Content Include="public\js\atlantis.min.js" />
+    <Content Include="public\js\atlantis2.js" />
+    <Content Include="public\js\atlantis2.min.js" />
+    <Content Include="public\js\core\bootstrap.min.js" />
+    <Content Include="public\js\core\jquery.3.2.1.min.js" />
+    <Content Include="public\js\core\popper.min.js" />
+    <Content Include="public\js\demo.js" />
+    <Content Include="public\js\demo2.js" />
+    <Content Include="public\js\plugin\bootstrap-notify\bootstrap-notify.min.js" />
+    <Content Include="public\js\plugin\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
+    <Content Include="public\js\plugin\bootstrap-toggle\bootstrap-toggle.min.js" />
+    <Content Include="public\js\plugin\bootstrap-wizard\bootstrapwizard.js" />
+    <Content Include="public\js\plugin\chart-circle\circles.min.js" />
+    <Content Include="public\js\plugin\chart.js\chart.min.js" />
+    <Content Include="public\js\plugin\datatables\datatables.min.js" />
+    <Content Include="public\js\plugin\datepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="public\js\plugin\dropzone\dropzone.min.js" />
+    <Content Include="public\js\plugin\fullcalendar\fullcalendar.min.js" />
+    <Content Include="public\js\plugin\gmaps\gmaps.js" />
+    <Content Include="public\js\plugin\jquery-scrollbar\jquery.scrollbar.min.js" />
+    <Content Include="public\js\plugin\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
+    <Content Include="public\js\plugin\jquery-ui-touch-punch\jquery.ui.touch-punch.min.js" />
+    <Content Include="public\js\plugin\jquery.magnific-popup\jquery.magnific-popup.min.js" />
+    <Content Include="public\js\plugin\jquery.sparkline\jquery.sparkline.min.js" />
+    <Content Include="public\js\plugin\jquery.validate\jquery.validate.min.js" />
+    <Content Include="public\js\plugin\jqvmap\jquery.vmap.min.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\continents\jquery.vmap.africa.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\continents\jquery.vmap.asia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\continents\jquery.vmap.australia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\continents\jquery.vmap.europe.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\continents\jquery.vmap.north-america.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\continents\jquery.vmap.south-america.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.algeria.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.argentina.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.brazil.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.canada.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.croatia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.europe.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.france.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.germany.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.greece.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.indonesia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.iran.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.iraq.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.new_regions_france.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.russia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.serbia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.tunisia.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.turkey.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.ukraine.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.usa.counties.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.usa.districts.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.usa.js" />
+    <Content Include="public\js\plugin\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="public\js\plugin\list.js\list.min.js" />
+    <Content Include="public\js\plugin\moment\moment.min.js" />
+    <Content Include="public\js\plugin\owl-carousel\ajax-loader.gif" />
+    <Content Include="public\js\plugin\owl-carousel\owl.carousel.min.js" />
+    <Content Include="public\js\plugin\owl-carousel\owl.video.play.png" />
+    <Content Include="public\js\plugin\select2\select2.full.min.js" />
+    <Content Include="public\js\plugin\sortable\sortable.min.js" />
+    <Content Include="public\js\plugin\sticky-sidebar\sticky-sidebar.min.js" />
+    <Content Include="public\js\plugin\summernote\summernote-bs4.min.js" />
+    <Content Include="public\js\plugin\sweetalert\sweetalert.min.js" />
+    <Content Include="public\js\plugin\webfont\webfont.min.js" />
+    <Content Include="public\js\setting-demo.js" />
+    <Content Include="public\js\setting-demo2.js" />
+    <Content Include="public\sass\atlantis\plugins\index.php" />
+    <Content Include="schedule.html" />
+    <Content Include="tracking.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <Content Include="public\css\atlantis.css.map" />
+    <Content Include="public\css\atlantis2.css.map" />
+    <Content Include="public\fonts\flaticon\Flaticon.eot" />
+    <Content Include="public\fonts\flaticon\Flaticon.ttf" />
+    <Content Include="public\fonts\flaticon\Flaticon.woff" />
+    <Content Include="public\fonts\flaticon\_flaticon.scss" />
+    <Content Include="public\fonts\fontawesome\fa-brands-400.eot" />
+    <Content Include="public\fonts\fontawesome\fa-brands-400.ttf" />
+    <Content Include="public\fonts\fontawesome\fa-brands-400.woff" />
+    <Content Include="public\fonts\fontawesome\fa-brands-400.woff2" />
+    <Content Include="public\fonts\fontawesome\fa-regular-400.eot" />
+    <Content Include="public\fonts\fontawesome\fa-regular-400.ttf" />
+    <Content Include="public\fonts\fontawesome\fa-regular-400.woff" />
+    <Content Include="public\fonts\fontawesome\fa-regular-400.woff2" />
+    <Content Include="public\fonts\fontawesome\fa-solid-900.eot" />
+    <Content Include="public\fonts\fontawesome\fa-solid-900.ttf" />
+    <Content Include="public\fonts\fontawesome\fa-solid-900.woff" />
+    <Content Include="public\fonts\fontawesome\fa-solid-900.woff2" />
+    <Content Include="public\fonts\simple-line-icons\Simple-Line-Icons.eot" />
+    <Content Include="public\fonts\simple-line-icons\Simple-Line-Icons.ttf" />
+    <Content Include="public\fonts\simple-line-icons\Simple-Line-Icons.woff" />
+    <Content Include="public\fonts\simple-line-icons\Simple-Line-Icons.woff2" />
+    <Content Include="public\fonts\summernote\summernote.eot" />
+    <Content Include="public\fonts\summernote\summernote.ttf" />
+    <Content Include="public\fonts\summernote\summernote.woff" />
+    <Content Include="public\img\Thumbs.db" />
+    <Content Include="public\sass\atlantis.scss" />
+    <Content Include="public\sass\atlantis2.scss" />
+    <Content Include="public\sass\atlantis\components\_activityfeed.scss" />
+    <Content Include="public\sass\atlantis\components\_alerts.scss" />
+    <Content Include="public\sass\atlantis\components\_avatars.scss" />
+    <Content Include="public\sass\atlantis\components\_badges.scss" />
+    <Content Include="public\sass\atlantis\components\_breadcrumbs.scss" />
+    <Content Include="public\sass\atlantis\components\_buttons.scss" />
+    <Content Include="public\sass\atlantis\components\_cards.scss" />
+    <Content Include="public\sass\atlantis\components\_charts.scss" />
+    <Content Include="public\sass\atlantis\components\_colorinputs.scss" />
+    <Content Include="public\sass\atlantis\components\_dropdowns.scss" />
+    <Content Include="public\sass\atlantis\components\_dropdownsearch.scss" />
+    <Content Include="public\sass\atlantis\components\_gutters.scss" />
+    <Content Include="public\sass\atlantis\components\_imagecheck.scss" />
+    <Content Include="public\sass\atlantis\components\_inputs.scss" />
+    <Content Include="public\sass\atlantis\components\_invoice.scss" />
+    <Content Include="public\sass\atlantis\components\_listgroup.scss" />
+    <Content Include="public\sass\atlantis\components\_loader.scss" />
+    <Content Include="public\sass\atlantis\components\_maps.scss" />
+    <Content Include="public\sass\atlantis\components\_messages.scss" />
+    <Content Include="public\sass\atlantis\components\_modals.scss" />
+    <Content Include="public\sass\atlantis\components\_navbars.scss" />
+    <Content Include="public\sass\atlantis\components\_navsearch.scss" />
+    <Content Include="public\sass\atlantis\components\_navtabs.scss" />
+    <Content Include="public\sass\atlantis\components\_paginations.scss" />
+    <Content Include="public\sass\atlantis\components\_popovers.scss" />
+    <Content Include="public\sass\atlantis\components\_progress.scss" />
+    <Content Include="public\sass\atlantis\components\_projects.scss" />
+    <Content Include="public\sass\atlantis\components\_rating.scss" />
+    <Content Include="public\sass\atlantis\components\_selectgroup.scss" />
+    <Content Include="public\sass\atlantis\components\_settings.scss" />
+    <Content Include="public\sass\atlantis\components\_sliders.scss" />
+    <Content Include="public\sass\atlantis\components\_stamps.scss" />
+    <Content Include="public\sass\atlantis\components\_tables.scss" />
+    <Content Include="public\sass\atlantis\components\_tasks.scss" />
+    <Content Include="public\sass\atlantis\components\_tile.scss" />
+    <Content Include="public\sass\atlantis\components\_timeline.scss" />
+    <Content Include="public\sass\atlantis\components\_wizard.scss" />
+    <Content Include="public\sass\atlantis\plugins\_animate.scss" />
+    <Content Include="public\sass\atlantis\plugins\_datatables.scss" />
+    <Content Include="public\sass\atlantis\plugins\_datepicker.scss" />
+    <Content Include="public\sass\atlantis\plugins\_dropzone.scss" />
+    <Content Include="public\sass\atlantis\plugins\_fullcalendar.scss" />
+    <Content Include="public\sass\atlantis\plugins\_jkanban.scss" />
+    <Content Include="public\sass\atlantis\plugins\_jqueryscrollbar.scss" />
+    <Content Include="public\sass\atlantis\plugins\_jqueryui.scss" />
+    <Content Include="public\sass\atlantis\plugins\_magnific-popup.scss" />
+    <Content Include="public\sass\atlantis\plugins\_owlcarousel.scss" />
+    <Content Include="public\sass\atlantis\plugins\_select2.scss" />
+    <Content Include="public\sass\atlantis\plugins\_summernote.scss" />
+    <Content Include="public\sass\atlantis\plugins\_sweetalert.scss" />
+    <Content Include="public\sass\atlantis\plugins\_tagsinput.scss" />
+    <Content Include="public\sass\atlantis\plugins\_toggle.scss" />
+    <Content Include="public\sass\atlantis\_background.scss" />
+    <Content Include="public\sass\atlantis\_components.scss" />
+    <Content Include="public\sass\atlantis\_flaticon.scss" />
+    <Content Include="public\sass\atlantis\_font-awesome.scss" />
+    <Content Include="public\sass\atlantis\_layouts-colors.scss" />
+    <Content Include="public\sass\atlantis\_layouts-horizontal-colors.scss" />
+    <Content Include="public\sass\atlantis\_layouts-horizontal.scss" />
+    <Content Include="public\sass\atlantis\_layouts.scss" />
+    <Content Include="public\sass\atlantis\_login.scss" />
+    <Content Include="public\sass\atlantis\_opacity.scss" />
+    <Content Include="public\sass\atlantis\_outlinefocus.scss" />
+    <Content Include="public\sass\atlantis\_pagenotfound.scss" />
+    <Content Include="public\sass\atlantis\_plugins.scss" />
+    <Content Include="public\sass\atlantis\_responsive-horizontal.scss" />
+    <Content Include="public\sass\atlantis\_responsive.scss" />
+    <Content Include="public\sass\atlantis\_typography.scss" />
+    <Content Include="public\sass\atlantis\_variables.scss" />
+    <Content Include="README.md" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53369</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44303/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
