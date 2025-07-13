@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DolphinPortal", "DolphinPortal\DolphinPortal.vbproj", "{EF1F44C5-526D-44BE-B7AC-8BE096D70E1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF1F44C5-526D-44BE-B7AC-8BE096D70E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1F44C5-526D-44BE-B7AC-8BE096D70E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1F44C5-526D-44BE-B7AC-8BE096D70E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1F44C5-526D-44BE-B7AC-8BE096D70E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA26415B-5AE0-4533-9CA9-989228995F26}
+	EndGlobalSection
+EndGlobal

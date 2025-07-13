@@ -1,0 +1,764 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dolphin School Portal - Child Progress</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/placeholder.svg?height=32&width=32" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #1f4e79;
+            --secondary-blue: #2980b9;
+            --maroon: #8b1538;
+            --light-maroon: #a91d42;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .progress-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .progress-header {
+            background: linear-gradient(135deg, var(--maroon) 0%, var(--light-maroon) 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .progress-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .student-overview {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .student-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            margin: 0 auto 20px;
+        }
+
+        .academic-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin: 0 auto 15px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .subject-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-right: 15px;
+        }
+
+        .grade-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-left: auto;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .attendance-chart {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .behavior-ratings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .behavior-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #ddd;
+            font-size: 1.2rem;
+        }
+
+            .star.filled {
+                color: #ffd700;
+            }
+
+        .teacher-comments {
+            background: #f8f9ff;
+            border-left: 4px solid var(--secondary-blue);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .back-btn:hover {
+                background: var(--secondary-blue);
+                color: var(--white);
+                text-decoration: none;
+                transform: translateY(-2px);
+            }
+
+        .print-btn {
+            background: var(--success);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+            .print-btn:hover {
+                background: #2ecc71;
+                color: var(--white);
+                transform: translateY(-2px);
+            }
+
+        @media (max-width: 768px) {
+            .progress-container {
+                padding: 10px;
+            }
+
+            .progress-header {
+                padding: 30px 20px;
+            }
+
+            .progress-card {
+                padding: 20px;
+            }
+
+            .student-overview {
+                padding: 20px;
+            }
+
+            .academic-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <!-- Header -->
+        <div class="progress-header">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">
+                    <i class="fas fa-chart-bar mr-3"></i>
+                    Child Progress Report
+                </h2>
+                <div>
+                    <a href="dashboard.html" class="back-btn">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                    <button class="print-btn" onclick="window.print()">
+                        <i class="fas fa-print mr-2"></i>Print Report
+                    </button>
+                </div>
+            </div>
+            <p class="mb-0 opacity-75">Comprehensive academic and behavioral progress tracking</p>
+        </div>
+
+        <!-- Student Overview -->
+        <div class="student-overview">
+            <img src="/public/img/peter11s.png?height=100&width=100" alt="Student Photo" class="student-avatar">
+            <h3>Peter John Z. Beroy</h3>
+            <p class="mb-2">Grade Level: Grade 5 | School Year: 2025-2026</p>
+            <p class="mb-0 opacity-75">Quarter: 1st Quarter</p>
+        </div>
+
+        <!-- Academic Performance Stats -->
+        <div class="academic-stats">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--success);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-number">92.5%</div>
+                <div class="text-muted">Overall Grade</div>
+                <small class="text-success">Excellent Performance</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--secondary-blue);">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-number">43/44</div>
+                <div class="text-muted">Days Present</div>
+                <small class="text-info">98% Attendance</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--warning);">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-number">1</div>
+                <div class="text-muted">Days Late</div>
+                <small class="text-warning">Punctuality Good</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--maroon);">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-number">3rd</div>
+                <div class="text-muted">Class Rank</div>
+                <small class="text-primary">Out of 35 students</small>
+            </div>
+        </div>
+
+        <!-- Academic Performance by Subject -->
+        <div class="progress-card">
+            <h5 class="mb-4">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                📊 Academic Performance
+            </h5>
+
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div class="subject-icon" style="background: #3498db;">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">English</h6>
+                            <small class="text-muted">Reading & Writing</small>
+                        </div>
+                        <div class="grade-display text-success">92</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%; background: #3498db;"></div>
+                    </div>
+                    <small class="text-muted">Excellent reading comprehension</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div class="subject-icon" style="background: #e74c3c;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Mathematics</h6>
+                            <small class="text-muted">Problem Solving</small>
+                        </div>
+                        <div class="grade-display text-primary">89</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 89%; background: #e74c3c;"></div>
+                    </div>
+                    <small class="text-muted">Shows strong problem-solving skills</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div class="subject-icon" style="background: #2ecc71;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Science</h6>
+                            <small class="text-muted">Experiments & Research</small>
+                        </div>
+                        <div class="grade-display text-success">94</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 94%; background: #2ecc71;"></div>
+                    </div>
+                    <small class="text-muted">Very curious and participative</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div class="subject-icon" style="background: #f39c12;">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Araling Panlipunan</h6>
+                            <small class="text-muted">History & Culture</small>
+                        </div>
+                        <div class="grade-display text-warning">87</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 87%; background: #f39c12;"></div>
+                    </div>
+                    <small class="text-muted">Understands historical concepts well</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div class="subject-icon" style="background: #9b59b6;">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">MAPEH</h6>
+                            <small class="text-muted">Music, Arts, PE, Health</small>
+                        </div>
+                        <div class="grade-display text-primary">90</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%; background: #9b59b6;"></div>
+                    </div>
+                    <small class="text-muted">Active and creative in class</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div class="subject-icon" style="background: #1abc9c;">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Filipino</h6>
+                            <small class="text-muted">Language & Literature</small>
+                        </div>
+                        <div class="grade-display text-info">90</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%; background: #1abc9c;"></div>
+                    </div>
+                    <small class="text-muted">Good grasp of native language</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Record -->
+        <div class="attendance-chart">
+            <h5 class="mb-4">
+                <i class="fas fa-calendar-check mr-2"></i>
+                📈 Attendance Record
+            </h5>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <canvas id="attendanceChart" width="300" height="300"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="attendance-details">
+                        <div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-success text-white rounded">
+                            <div>
+                                <i class="fas fa-check-circle mr-2"></i>
+                                <strong>Present</strong>
+                            </div>
+                            <div class="h4 mb-0">43 days</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-danger text-white rounded">
+                            <div>
+                                <i class="fas fa-times-circle mr-2"></i>
+                                <strong>Absent</strong>
+                            </div>
+                            <div class="h4 mb-0">2 days</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-warning text-white rounded">
+                            <div>
+                                <i class="fas fa-clock mr-2"></i>
+                                <strong>Late</strong>
+                            </div>
+                            <div class="h4 mb-0">1 day</div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-light rounded">
+                            <h6 class="text-primary">Attendance Rate</h6>
+                            <div class="h2 text-success mb-0">97.8%</div>
+                            <small class="text-muted">Excellent attendance record</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Behavior & Values -->
+        <div class="progress-card">
+            <h5 class="mb-4">
+                <i class="fas fa-heart mr-2"></i>
+                🧠 Behavior & Values
+            </h5>
+
+            <div class="behavior-ratings">
+                <div>
+                    <div class="behavior-item">
+                        <span><strong>Respectfulness</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                        </div>
+                    </div>
+
+                    <div class="behavior-item">
+                        <span><strong>Responsibility</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+
+                    <div class="behavior-item">
+                        <span><strong>Teamwork</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                        </div>
+                    </div>
+
+                    <div class="behavior-item">
+                        <span><strong>Initiative</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="behavior-item">
+                        <span><strong>Leadership</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+
+                    <div class="behavior-item">
+                        <span><strong>Creativity</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                        </div>
+                    </div>
+
+                    <div class="behavior-item">
+                        <span><strong>Communication</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+
+                    <div class="behavior-item">
+                        <span><strong>Problem Solving</strong></span>
+                        <div class="star-rating">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher's Comments -->
+        <div class="progress-card">
+            <h5 class="mb-4">
+                <i class="fas fa-comments mr-2"></i>
+                💬 Teacher's Comments
+            </h5>
+
+            <div class="teacher-comments">
+                <h6 class="text-primary mb-3">Class Adviser - Ms. Jennifer Reyes</h6>
+                <p class="mb-0">
+                    "Maria Isabel is a very motivated learner. She actively participates in discussions and consistently submits quality work.
+                    Her leadership skills are evident when working in group activities, and she often helps her classmates understand difficult concepts.
+                    She shows excellent behavior and respect towards teachers and peers. Continued support at home will further enhance her learning progress.
+                    I recommend encouraging her participation in academic competitions to challenge her abilities further."
+                </p>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="border-left border-success pl-3">
+                        <h6 class="text-success">Strengths</h6>
+                        <ul class="mb-0">
+                            <li>Excellent academic performance</li>
+                            <li>Strong leadership qualities</li>
+                            <li>Active class participation</li>
+                            <li>Helpful to classmates</li>
+                            <li>Creative problem-solving</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="border-left border-warning pl-3">
+                        <h6 class="text-warning">Areas for Improvement</h6>
+                        <ul class="mb-0">
+                            <li>Time management skills</li>
+                            <li>Handwriting neatness</li>
+                            <li>Speaking confidence in large groups</li>
+                            <li>Organization of school materials</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="progress-card">
+            <h5 class="mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>
+                💡 Recommendations for Parents
+            </h5>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0"><i class="fas fa-home mr-2"></i>At Home</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>Continue providing a quiet study environment</li>
+                                <li>Encourage reading diverse books</li>
+                                <li>Practice math problems regularly</li>
+                                <li>Support science experiments at home</li>
+                                <li>Maintain consistent bedtime routine</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-users mr-2"></i>Social Development</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>Encourage participation in group activities</li>
+                                <li>Develop public speaking skills</li>
+                                <li>Join academic clubs or competitions</li>
+                                <li>Practice leadership opportunities</li>
+                                <li>Build confidence through achievements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            initAttendanceChart();
+
+            // Add animation delays
+            $('.progress-card').each(function(index) {
+                $(this).css('animation-delay', (index * 0.1) + 's');
+            });
+
+            $('.stat-card').each(function(index) {
+                $(this).css('animation-delay', (index * 0.1 + 0.3) + 's');
+            });
+
+            // Animate progress bars
+            setTimeout(function() {
+                $('.progress-fill').each(function() {
+                    const width = $(this).css('width');
+                    $(this).css('width', '0').animate({width: width}, 1000);
+                });
+            }, 500);
+        });
+
+        function initAttendanceChart() {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Present', 'Absent', 'Late'],
+                    datasets: [{
+                        data: [43, 2, 1],
+                        backgroundColor: ['#27ae60', '#e74c3c', '#f39c12'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

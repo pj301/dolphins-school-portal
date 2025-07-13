@@ -1,0 +1,643 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dolphin School Portal - Class Schedule</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/placeholder.svg?height=32&width=32" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #1f4e79;
+            --secondary-blue: #2980b9;
+            --maroon: #8b1538;
+            --light-maroon: #a91d42;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .schedule-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .schedule-header {
+            background: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .schedule-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .day-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .day-tab {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px 15px;
+            border: 2px solid var(--secondary-blue);
+            background: var(--white);
+            color: var(--secondary-blue);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+            .day-tab.active {
+                background: var(--secondary-blue);
+                color: var(--white);
+            }
+
+            .day-tab.today {
+                border-color: var(--success);
+                color: var(--success);
+            }
+
+                .day-tab.today.active {
+                    background: var(--success);
+                    color: var(--white);
+                }
+
+        .schedule-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+            .schedule-timeline::before {
+                content: '';
+                position: absolute;
+                left: 15px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: var(--secondary-blue);
+            }
+
+        .schedule-item {
+            position: relative;
+            margin-bottom: 20px;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-left: 20px;
+            border-left: 4px solid var(--secondary-blue);
+        }
+
+            .schedule-item::before {
+                content: '';
+                position: absolute;
+                left: -35px;
+                top: 25px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: var(--secondary-blue);
+                border: 3px solid var(--white);
+                box-shadow: 0 0 0 3px var(--secondary-blue);
+            }
+
+            .schedule-item.current {
+                border-left-color: var(--success);
+                background: #f8fff9;
+            }
+
+                .schedule-item.current::before {
+                    background: var(--success);
+                    box-shadow: 0 0 0 3px var(--success);
+                    animation: pulse 2s infinite;
+                }
+
+        .schedule-time {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .schedule-subject {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .schedule-details {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .schedule-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .calendar-widget {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav {
+            background: var(--secondary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .calendar-nav:hover {
+                background: var(--primary-blue);
+                transform: scale(1.1);
+            }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-day {
+            padding: 10px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .calendar-day:hover {
+                background: var(--light-gray);
+            }
+
+            .calendar-day.today {
+                background: var(--success);
+                color: var(--white);
+                font-weight: 700;
+            }
+
+            .calendar-day.has-event {
+                background: var(--secondary-blue);
+                color: var(--white);
+            }
+
+        .upcoming-events {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-left: 4px solid var(--warning);
+            background: var(--light-gray);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 15px;
+        }
+
+            .event-item.exam {
+                border-left-color: var(--danger);
+            }
+
+            .event-item.assignment {
+                border-left-color: var(--secondary-blue);
+            }
+
+        .event-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--white);
+        }
+
+        .back-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .back-btn:hover {
+                background: var(--secondary-blue);
+                color: var(--white);
+                text-decoration: none;
+                transform: translateY(-2px);
+            }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .schedule-container {
+                padding: 10px;
+            }
+
+            .schedule-header {
+                padding: 30px 20px;
+            }
+
+            .schedule-card {
+                padding: 20px;
+            }
+
+            .day-tabs {
+                flex-direction: column;
+            }
+
+            .day-tab {
+                min-width: auto;
+            }
+
+            .schedule-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule-container">
+        <!-- Header -->
+        <div class="schedule-header">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">
+                    <i class="fas fa-calendar-alt mr-3"></i>
+                    Class Schedule
+                </h2>
+                <a href="dashboard.html" class="back-btn">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                </a>
+            </div>
+            <p class="mb-0 opacity-75">Maria Isabel Santos - Grade 5 Section A | Current Time: <span id="currentTime"></span></p>
+        </div>
+
+        <!-- Day Selector -->
+        <div class="day-tabs">
+            <div class="day-tab active today" data-day="monday">
+                <i class="fas fa-calendar-day mr-2"></i>
+                Monday
+            </div>
+            <div class="day-tab" data-day="tuesday">
+                <i class="fas fa-calendar-day mr-2"></i>
+                Tuesday
+            </div>
+            <div class="day-tab" data-day="wednesday">
+                <i class="fas fa-calendar-day mr-2"></i>
+                Wednesday
+            </div>
+            <div class="day-tab" data-day="thursday">
+                <i class="fas fa-calendar-day mr-2"></i>
+                Thursday
+            </div>
+            <div class="day-tab" data-day="friday">
+                <i class="fas fa-calendar-day mr-2"></i>
+                Friday
+            </div>
+        </div>
+
+        <!-- Schedule Timeline -->
+        <div class="schedule-card">
+            <h5 class="mb-4">
+                <i class="fas fa-clock mr-2"></i>
+                <span id="currentDay">Monday</span> Schedule
+            </h5>
+
+            <div class="schedule-timeline" id="scheduleTimeline">
+                <!-- Schedule items will be populated here -->
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Calendar Widget -->
+            <div class="col-md-6">
+                <div class="calendar-widget">
+                    <h5 class="mb-4">
+                        <i class="fas fa-calendar mr-2"></i>
+                        January 2025
+                    </h5>
+
+                    <div class="calendar-header">
+                        <button class="calendar-nav">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h6 class="mb-0">January 2025</h6>
+                        <button class="calendar-nav">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="calendar-grid">
+                        <div class="font-weight-bold">Sun</div>
+                        <div class="font-weight-bold">Mon</div>
+                        <div class="font-weight-bold">Tue</div>
+                        <div class="font-weight-bold">Wed</div>
+                        <div class="font-weight-bold">Thu</div>
+                        <div class="font-weight-bold">Fri</div>
+                        <div class="font-weight-bold">Sat</div>
+
+                        <!-- Calendar days -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day today">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day has-event">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day has-event">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">31</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="col-md-6">
+                <div class="upcoming-events">
+                    <h5 class="mb-4">
+                        <i class="fas fa-bell mr-2"></i>
+                        Upcoming Events & Reminders
+                    </h5>
+
+                    <div class="event-item exam">
+                        <div class="event-icon" style="background: var(--danger);">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div>
+                            <strong>Mathematics Quiz</strong><br>
+                            <small class="text-muted">Tomorrow, January 14 - 10:00 AM</small>
+                        </div>
+                    </div>
+
+                    <div class="event-item assignment">
+                        <div class="event-icon" style="background: var(--secondary-blue);">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div>
+                            <strong>Science Project Submission</strong><br>
+                            <small class="text-muted">January 15 - Due Date</small>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-icon" style="background: var(--warning);">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Parent-Teacher Conference</strong><br>
+                            <small class="text-muted">January 20 - 2:00 PM</small>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-icon" style="background: var(--success);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div>
+                            <strong>Academic Awards Ceremony</strong><br>
+                            <small class="text-muted">January 25 - 9:00 AM</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const scheduleData = {
+            monday: [
+                { time: '7:30 - 8:00', subject: 'Flag Ceremony', teacher: 'All Teachers', room: 'School Grounds', type: 'ceremony' },
+                { time: '8:00 - 9:00', subject: 'English', teacher: 'Ms. Patricia Cruz', room: 'Room 5A', type: 'class', current: true },
+                { time: '9:00 - 10:00', subject: 'Mathematics', teacher: 'Mr. Carlos Santos', room: 'Room 5A', type: 'class' },
+                { time: '10:00 - 10:15', subject: 'Recess', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '10:15 - 11:15', subject: 'Science', teacher: 'Ms. Jennifer Reyes', room: 'Science Lab', type: 'class' },
+                { time: '11:15 - 12:15', subject: 'Araling Panlipunan', teacher: 'Mr. Roberto Garcia', room: 'Room 5A', type: 'class' },
+                { time: '12:15 - 1:15', subject: 'Lunch Break', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '1:15 - 2:15', subject: 'MAPEH', teacher: 'Ms. Maria Santos', room: 'Music Room', type: 'class' },
+                { time: '2:15 - 3:15', subject: 'Filipino', teacher: 'Ms. Ana Garcia', room: 'Room 5A', type: 'class' }
+            ],
+            tuesday: [
+                { time: '8:00 - 9:00', subject: 'Mathematics', teacher: 'Mr. Carlos Santos', room: 'Room 5A', type: 'class' },
+                { time: '9:00 - 10:00', subject: 'English', teacher: 'Ms. Patricia Cruz', room: 'Room 5A', type: 'class' },
+                { time: '10:00 - 10:15', subject: 'Recess', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '10:15 - 11:15', subject: 'Filipino', teacher: 'Ms. Ana Garcia', room: 'Room 5A', type: 'class' },
+                { time: '11:15 - 12:15', subject: 'Science', teacher: 'Ms. Jennifer Reyes', room: 'Science Lab', type: 'class' },
+                { time: '12:15 - 1:15', subject: 'Lunch Break', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '1:15 - 2:15', subject: 'Araling Panlipunan', teacher: 'Mr. Roberto Garcia', room: 'Room 5A', type: 'class' },
+                { time: '2:15 - 3:15', subject: 'MAPEH', teacher: 'Ms. Maria Santos', room: 'Art Room', type: 'class' }
+            ],
+            wednesday: [
+                { time: '8:00 - 9:00', subject: 'Science', teacher: 'Ms. Jennifer Reyes', room: 'Science Lab', type: 'class' },
+                { time: '9:00 - 10:00', subject: 'Mathematics', teacher: 'Mr. Carlos Santos', room: 'Room 5A', type: 'class' },
+                { time: '10:00 - 10:15', subject: 'Recess', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '10:15 - 11:15', subject: 'English', teacher: 'Ms. Patricia Cruz', room: 'Room 5A', type: 'class' },
+                { time: '11:15 - 12:15', subject: 'Filipino', teacher: 'Ms. Ana Garcia', room: 'Room 5A', type: 'class' },
+                { time: '12:15 - 1:15', subject: 'Lunch Break', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '1:15 - 2:15', subject: 'MAPEH', teacher: 'Ms. Maria Santos', room: 'PE Gym', type: 'class' },
+                { time: '2:15 - 3:15', subject: 'Araling Panlipunan', teacher: 'Mr. Roberto Garcia', room: 'Room 5A', type: 'class' }
+            ],
+            thursday: [
+                { time: '8:00 - 9:00', subject: 'Filipino', teacher: 'Ms. Ana Garcia', room: 'Room 5A', type: 'class' },
+                { time: '9:00 - 10:00', subject: 'Science', teacher: 'Ms. Jennifer Reyes', room: 'Science Lab', type: 'class' },
+                { time: '10:00 - 10:15', subject: 'Recess', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '10:15 - 11:15', subject: 'Mathematics', teacher: 'Mr. Carlos Santos', room: 'Room 5A', type: 'class' },
+                { time: '11:15 - 12:15', subject: 'English', teacher: 'Ms. Patricia Cruz', room: 'Room 5A', type: 'class' },
+                { time: '12:15 - 1:15', subject: 'Lunch Break', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '1:15 - 2:15', subject: 'Araling Panlipunan', teacher: 'Mr. Roberto Garcia', room: 'Room 5A', type: 'class' },
+                { time: '2:15 - 3:15', subject: 'MAPEH', teacher: 'Ms. Maria Santos', room: 'Music Room', type: 'class' }
+            ],
+            friday: [
+                { time: '8:00 - 9:00', subject: 'MAPEH', teacher: 'Ms. Maria Santos', room: 'PE Gym', type: 'class' },
+                { time: '9:00 - 10:00', subject: 'English', teacher: 'Ms. Patricia Cruz', room: 'Room 5A', type: 'class' },
+                { time: '10:00 - 10:15', subject: 'Recess', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '10:15 - 11:15', subject: 'Filipino', teacher: 'Ms. Ana Garcia', room: 'Room 5A', type: 'class' },
+                { time: '11:15 - 12:15', subject: 'Mathematics', teacher: 'Mr. Carlos Santos', room: 'Room 5A', type: 'class' },
+                { time: '12:15 - 1:15', subject: 'Lunch Break', teacher: '', room: 'Canteen', type: 'break' },
+                { time: '1:15 - 2:15', subject: 'Science', teacher: 'Ms. Jennifer Reyes', room: 'Science Lab', type: 'class' },
+                { time: '2:15 - 3:15', subject: 'Araling Panlipunan', teacher: 'Mr. Roberto Garcia', room: 'Room 5A', type: 'class' }
+            ]
+        };
+
+        $(document).ready(function() {
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+
+            loadSchedule('monday');
+
+            // Day tab selector
+            $('.day-tab').click(function() {
+                $('.day-tab').removeClass('active');
+                $(this).addClass('active');
+                const day = $(this).data('day');
+                loadSchedule(day);
+                $('#currentDay').text($(this).text());
+            });
+
+            // Add animation delays
+            $('.schedule-card').each(function(index) {
+                $(this).css('animation-delay', (index * 0.1) + 's');
+            });
+        });
+
+        function updateCurrentTime() {
+            const now = new Date();
+            $('#currentTime').text(now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }));
+        }
+
+        function loadSchedule(day) {
+            const schedule = scheduleData[day] || [];
+            const timeline = $('#scheduleTimeline');
+            timeline.empty();
+
+            schedule.forEach(item => {
+                const currentClass = item.current ? 'current' : '';
+                const typeIcon = getTypeIcon(item.type);
+
+                const scheduleItem = `
+                    <div class="schedule-item ${currentClass}">
+                        <div class="schedule-time">${item.time}</div>
+                        <div class="schedule-subject">
+                            <i class="${typeIcon} mr-2"></i>
+                            ${item.subject}
+                        </div>
+                        <div class="schedule-details">
+                            ${item.teacher ? `<div class="schedule-detail">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>${item.teacher}</span>
+                            </div>` : ''}
+                            <div class="schedule-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${item.room}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                timeline.append(scheduleItem);
+            });
+        }
+
+        function getTypeIcon(type) {
+            switch(type) {
+                case 'class': return 'fas fa-book';
+                case 'break': return 'fas fa-utensils';
+                case 'ceremony': return 'fas fa-flag';
+                default: return 'fas fa-clock';
+            }
+        }
+    </script>
+</body>
+</html>

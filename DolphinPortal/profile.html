@@ -1,0 +1,618 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dolphin School Portal - Student Profile</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/placeholder.svg?height=32&width=32" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #1f4e79;
+            --secondary-blue: #2980b9;
+            --maroon: #8b1538;
+            --light-maroon: #a91d42;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .profile-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            object-fit: cover;
+        }
+
+        .profile-info h3 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .profile-badge {
+            background: var(--maroon);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .edit-btn {
+            background: var(--maroon);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .edit-btn:hover {
+                background: var(--light-maroon);
+                color: var(--white);
+                transform: translateY(-2px);
+            }
+
+        .back-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .back-btn:hover {
+                background: var(--secondary-blue);
+                color: var(--white);
+                text-decoration: none;
+                transform: translateY(-2px);
+            }
+
+        .academic-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .emergency-contact {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+            .emergency-contact h6 {
+                color: #856404;
+                margin-bottom: 15px;
+            }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 10px;
+            }
+
+            .profile-header {
+                padding: 30px 20px;
+            }
+
+            .profile-card {
+                padding: 20px;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Header -->
+        <div class="profile-header">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">
+                    <i class="fas fa-user mr-3"></i>
+                    Student Profile
+                </h2>
+                <a href="dashboard.html" class="back-btn">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                </a>
+            </div>
+            <p class="mb-0 opacity-75">Complete student information and academic details</p>
+        </div>
+
+        <!-- Profile Overview -->
+        <div class="profile-card">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center">
+                    <img src="/public/img/peter11s.png?height=150&width=150" alt="Student Photo" class="profile-avatar">
+                    <button class="btn edit-btn mt-3">
+                        <i class="fas fa-camera mr-2"></i>Change Photo
+                    </button>
+                </div>
+                <div class="col-md-9">
+                    <div class="profile-info">
+                        <h3>Peter John Z. Beroy</h3>
+                        <p class="text-muted mb-2">Student ID: 2025-0001</p>
+                        <div class="profile-badge">Grade 5 - Section A</div>
+                        <div class="profile-badge ml-2">Regular Student</div>
+
+                        <div class="academic-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">92.5%</div>
+                                <div>Overall GPA</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">98%</div>
+                                <div>Attendance</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">3rd</div>
+                                <div>Class Rank</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">2025</div>
+                                <div>School Year</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="profile-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">
+                    <i class="fas fa-user-circle mr-2"></i>
+                    Personal Information
+                </h5>
+                <button class="edit-btn">
+                    <i class="fas fa-edit mr-2"></i>Edit
+                </button>
+            </div>
+
+            <div class="info-grid">
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Date of Birth</strong><br>
+                            <span class="text-muted">March 15, 2015</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-venus-mars"></i>
+                        </div>
+                        <div>
+                            <strong>Gender</strong><br>
+                            <span class="text-muted">Female</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Address</strong><br>
+                            <span class="text-muted">123 Main Street, Barangay Centro, Quezon City, Metro Manila</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Phone Number</strong><br>
+                            <span class="text-muted">+63 912 345 6789</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email Address</strong><br>
+                            <span class="text-muted">maria.santos@student.dolphinschool.edu.ph</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div>
+                            <strong>Nationality</strong><br>
+                            <span class="text-muted">Filipino</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guardian Information -->
+        <div class="profile-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">
+                    <i class="fas fa-users mr-2"></i>
+                    Guardian Information
+                </h5>
+                <button class="edit-btn">
+                    <i class="fas fa-edit mr-2"></i>Edit
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="text-primary mb-3">Primary Guardian (Mother)</h6>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>Name</strong><br>
+                            <span class="text-muted">Mrs. Carmen Santos</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Phone</strong><br>
+                            <span class="text-muted">+63 917 123 4567</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email</strong><br>
+                            <span class="text-muted">carmen.santos@email.com</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div>
+                            <strong>Occupation</strong><br>
+                            <span class="text-muted">Teacher</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h6 class="text-primary mb-3">Secondary Guardian (Father)</h6>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>Name</strong><br>
+                            <span class="text-muted">Mr. Roberto Santos</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Phone</strong><br>
+                            <span class="text-muted">+63 918 765 4321</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email</strong><br>
+                            <span class="text-muted">roberto.santos@email.com</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div>
+                            <strong>Occupation</strong><br>
+                            <span class="text-muted">Engineer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emergency-contact">
+                <h6>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Emergency Contact
+                </h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Name:</strong> Mrs. Elena Santos (Grandmother)<br>
+                        <strong>Phone:</strong> +63 919 888 7777
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Relationship:</strong> Grandmother<br>
+                        <strong>Address:</strong> 456 Oak Street, Quezon City
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Information -->
+        <div class="profile-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    Academic Information
+                </h5>
+                <button class="edit-btn">
+                    <i class="fas fa-edit mr-2"></i>Edit
+                </button>
+            </div>
+
+            <div class="info-grid">
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div>
+                            <strong>Current Grade Level</strong><br>
+                            <span class="text-muted">Grade 5</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <strong>Section</strong><br>
+                            <span class="text-muted">Section A</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div>
+                            <strong>Adviser</strong><br>
+                            <span class="text-muted">Ms. Jennifer Reyes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div>
+                            <strong>School Year</strong><br>
+                            <span class="text-muted">2025-2026</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Enrollment Date</strong><br>
+                            <span class="text-muted">June 15, 2025</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div>
+                            <strong>LRN</strong><br>
+                            <span class="text-muted">123456789012</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Information -->
+        <div class="profile-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">
+                    <i class="fas fa-heartbeat mr-2"></i>
+                    Medical Information
+                </h5>
+                <button class="edit-btn">
+                    <i class="fas fa-edit mr-2"></i>Edit
+                </button>
+            </div>
+
+            <div class="info-grid">
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div>
+                            <strong>Blood Type</strong><br>
+                            <span class="text-muted">O+</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <div>
+                            <strong>Allergies</strong><br>
+                            <span class="text-muted">None known</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div>
+                            <strong>Family Doctor</strong><br>
+                            <span class="text-muted">Dr. Maria Cruz</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Doctor's Contact</strong><br>
+                            <span class="text-muted">+63 912 555 0123</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Add animation delays
+            $('.profile-card').each(function(index) {
+                $(this).css('animation-delay', (index * 0.1) + 's');
+            });
+
+            // Edit button functionality
+            $('.edit-btn').click(function() {
+                alert('Edit functionality would open a modal or redirect to edit form.');
+            });
+        });
+    </script>
+</body>
+</html>

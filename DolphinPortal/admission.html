@@ -1,0 +1,669 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dolphin School Portal - Online Admission</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/placeholder.svg?height=32&width=32" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #1f4e79;
+            --secondary-blue: #2980b9;
+            --maroon: #8b1538;
+            --light-maroon: #a91d42;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .admission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admission-header {
+            background: linear-gradient(135deg, var(--maroon) 0%, var(--light-maroon) 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .admission-type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .admission-type-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+            .admission-type-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+
+            .admission-type-card.active {
+                border-color: var(--secondary-blue);
+                background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+                color: var(--white);
+            }
+
+        .admission-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+        }
+
+        .admission-type-card.active .admission-icon {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        .program-selector {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .program-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .program-card:hover {
+                border-color: var(--secondary-blue);
+                background: #f8f9ff;
+            }
+
+            .program-card.selected {
+                border-color: var(--secondary-blue);
+                background: var(--secondary-blue);
+                color: var(--white);
+            }
+
+        .schedule-display {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .schedule-table th,
+            .schedule-table td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .schedule-table th {
+                background: var(--light-gray);
+                font-weight: 600;
+            }
+
+        .application-form {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+            .form-section h5 {
+                color: var(--primary-blue);
+                border-bottom: 2px solid var(--secondary-blue);
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus {
+                border-color: var(--secondary-blue);
+                box-shadow: 0 0 0 0.2rem rgba(41, 128, 185, 0.25);
+            }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(31, 78, 121, 0.3);
+            }
+
+        .back-btn {
+            background: var(--maroon);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            color: var(--white);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+            .back-btn:hover {
+                background: var(--light-maroon);
+                color: var(--white);
+            }
+
+        @media (max-width: 768px) {
+            .admission-container {
+                padding: 10px;
+            }
+
+            .admission-header {
+                padding: 30px 20px;
+            }
+
+            .admission-type-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admission-container">
+        <!-- Header -->
+        <div class="admission-header">
+            <h1 class="mb-3">
+                <i class="fas fa-graduation-cap mr-3"></i>
+                Online Admission Portal
+            </h1>
+            <p class="mb-0">Dolphin School Portal - School Year 2025-2026</p>
+        </div>
+
+        <!-- Step 1: Admission Type Selection -->
+        <div id="step1">
+            <h3 class="text-center mb-4">Select Admission Type</h3>
+            <div class="admission-type-selector">
+                <div class="admission-type-card" data-type="new">
+                    <div class="admission-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h4>New Student</h4>
+                    <p>First time enrollment at Dolphin School</p>
+                    <ul class="text-left mt-3">
+                        <li>Complete application form</li>
+                        <li>Submit required documents</li>
+                        <li>Entrance examination</li>
+                        <li>Interview process</li>
+                    </ul>
+                </div>
+
+                <div class="admission-type-card" data-type="returning">
+                    <div class="admission-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h4>Returning Student</h4>
+                    <p>Regular enrollment for existing students</p>
+                    <ul class="text-left mt-3">
+                        <li>Quick enrollment process</li>
+                        <li>Update personal information</li>
+                        <li>Select subjects/curriculum</li>
+                        <li>Payment of fees</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Program Selection -->
+        <div id="step2" class="program-selector">
+            <h4 class="mb-3">
+                <i class="fas fa-book mr-2"></i>
+                Select Your Program
+            </h4>
+            <p class="text-muted">Choose the program that matches your academic goals</p>
+
+            <div class="program-grid">
+                <div class="program-card" data-program="bsit">
+                    <h5>BSIT</h5>
+                    <p class="small">Bachelor of Science in Information Technology</p>
+                </div>
+
+                <div class="program-card" data-program="act">
+                    <h5>ACT</h5>
+                    <p class="small">Associate in Computer Technology</p>
+                </div>
+
+                <div class="program-card" data-program="bsba-mm">
+                    <h5>BSBA - Marketing</h5>
+                    <p class="small">Bachelor of Science in Business Administration (Marketing Management)</p>
+                </div>
+
+                <div class="program-card" data-program="bsba-fm">
+                    <h5>BSBA - Finance</h5>
+                    <p class="small">Bachelor of Science in Business Administration (Financial Management)</p>
+                </div>
+
+                <div class="program-card" data-program="bsed">
+                    <h5>BSED</h5>
+                    <p class="small">Bachelor of Secondary Education</p>
+                </div>
+
+                <div class="program-card" data-program="beed">
+                    <h5>BEED</h5>
+                    <p class="small">Bachelor of Elementary Education</p>
+                </div>
+
+                <div class="program-card" data-program="nursing">
+                    <h5>Nursing</h5>
+                    <p class="small">Bachelor of Science in Nursing</p>
+                </div>
+
+                <div class="program-card" data-program="bscrim">
+                    <h5>BSCRIM</h5>
+                    <p class="small">Bachelor of Science in Criminology</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="back-btn" onclick="goToStep(1)">
+                    <i class="fas fa-arrow-left mr-2"></i>Back
+                </button>
+                <button class="btn btn-primary" onclick="showSchedule()" disabled id="nextToSchedule">
+                    View Schedule <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Schedule Display -->
+        <div id="step3" class="schedule-display">
+            <h4 class="mb-3">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                Class Schedule Preview
+            </h4>
+            <p class="text-muted">Review the class schedule for your selected program</p>
+
+            <div id="scheduleContent">
+                <!-- Schedule will be populated here -->
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="back-btn" onclick="goToStep(2)">
+                    <i class="fas fa-arrow-left mr-2"></i>Back
+                </button>
+                <button class="btn btn-primary" onclick="goToStep(4)">
+                    Proceed to Application <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Application Form -->
+        <div id="step4" class="application-form">
+            <h4 class="mb-4">
+                <i class="fas fa-edit mr-2"></i>
+                Application Form
+            </h4>
+
+            <form id="admissionForm">
+                <div class="form-section">
+                    <h5>Personal Information</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Date of Birth *</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Gender *</label>
+                                <select class="form-control" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5>Address Information</h5>
+                    <div class="form-group">
+                        <label>Complete Address *</label>
+                        <textarea class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>City *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Province *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>ZIP Code *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5>Guardian Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Guardian Name *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Relationship *</label>
+                                <select class="form-control" required>
+                                    <option value="">Select Relationship</option>
+                                    <option value="father">Father</option>
+                                    <option value="mother">Mother</option>
+                                    <option value="guardian">Guardian</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Guardian Email *</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Guardian Phone *</label>
+                                <input type="tel" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5>Academic Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Last School Attended *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Year Graduated *</label>
+                                <input type="number" class="form-control" min="2000" max="2025" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="back-btn" onclick="goToStep(3)">
+                        <i class="fas fa-arrow-left mr-2"></i>Back
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane mr-2"></i>Submit Application
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let selectedAdmissionType = '';
+        let selectedProgram = '';
+
+        const scheduleData = {
+            'bsit': [
+                { subject: 'Programming Fundamentals', time: '8:00 AM - 10:00 AM', instructor: 'Prof. John Smith', room: 'IT Lab 1' },
+                { subject: 'Database Management', time: '10:00 AM - 12:00 PM', instructor: 'Prof. Jane Doe', room: 'IT Lab 2' },
+                { subject: 'Web Development', time: '1:00 PM - 3:00 PM', instructor: 'Prof. Mike Johnson', room: 'IT Lab 3' },
+                { subject: 'System Analysis', time: '3:00 PM - 5:00 PM', instructor: 'Prof. Sarah Wilson', room: 'Room 201' }
+            ],
+            'act': [
+                { subject: 'Computer Hardware', time: '8:00 AM - 10:00 AM', instructor: 'Prof. Robert Brown', room: 'Tech Lab 1' },
+                { subject: 'Network Basics', time: '10:00 AM - 12:00 PM', instructor: 'Prof. Lisa Garcia', room: 'Tech Lab 2' },
+                { subject: 'Office Applications', time: '1:00 PM - 3:00 PM', instructor: 'Prof. David Lee', room: 'Computer Lab' }
+            ],
+            'bsba-mm': [
+                { subject: 'Marketing Management', time: '8:00 AM - 10:00 AM', instructor: 'Prof. Maria Santos', room: 'Room 301' },
+                { subject: 'Consumer Behavior', time: '10:00 AM - 12:00 PM', instructor: 'Prof. Carlos Reyes', room: 'Room 302' },
+                { subject: 'Digital Marketing', time: '1:00 PM - 3:00 PM', instructor: 'Prof. Ana Cruz', room: 'Room 303' }
+            ],
+            'nursing': [
+                { subject: 'Anatomy & Physiology', time: '8:00 AM - 10:00 AM', instructor: 'Dr. Patricia Gomez', room: 'Science Lab' },
+                { subject: 'Nursing Fundamentals', time: '10:00 AM - 12:00 PM', instructor: 'Dr. Michael Torres', room: 'Nursing Lab' },
+                { subject: 'Medical Terminology', time: '1:00 PM - 3:00 PM', instructor: 'Dr. Jennifer Lopez', room: 'Room 401' }
+            ]
+        };
+
+        $(document).ready(function() {
+            // Admission type selection
+            $('.admission-type-card').click(function() {
+                $('.admission-type-card').removeClass('active');
+                $(this).addClass('active');
+                selectedAdmissionType = $(this).data('type');
+
+                setTimeout(() => {
+                    goToStep(2);
+                }, 500);
+            });
+
+            // Program selection
+            $('.program-card').click(function() {
+                $('.program-card').removeClass('selected');
+                $(this).addClass('selected');
+                selectedProgram = $(this).data('program');
+                $('#nextToSchedule').prop('disabled', false);
+            });
+
+            // Form submission
+            $('#admissionForm').submit(function(e) {
+                e.preventDefault();
+
+                // Show loading state
+                const btn = $(this).find('button[type="submit"]');
+                const originalText = btn.html();
+                btn.html('<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...');
+                btn.prop('disabled', true);
+
+                // Simulate submission
+                setTimeout(function() {
+                    alert('Application submitted successfully! You will receive a confirmation email shortly.');
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+            });
+        });
+
+        function goToStep(step) {
+            // Hide all steps
+            $('#step1, #step2, #step3, #step4').hide();
+
+            // Show selected step
+            $(`#step${step}`).show();
+
+            // Scroll to top
+            $('html, body').animate({ scrollTop: 0 }, 300);
+        }
+
+        function showSchedule() {
+            if (!selectedProgram) return;
+
+            const schedule = scheduleData[selectedProgram] || [];
+            let scheduleHtml = `
+                <div class="alert alert-info">
+                    <strong>Program:</strong> ${$('.program-card.selected h5').text()}<br>
+                    <strong>Schedule Type:</strong> ${selectedAdmissionType === 'new' ? 'New Student Orientation + Regular Classes' : 'Regular Classes'}
+                </div>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Time</th>
+                            <th>Instructor</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            schedule.forEach(item => {
+                scheduleHtml += `
+                    <tr>
+                        <td>${item.subject}</td>
+                        <td>${item.time}</td>
+                        <td>${item.instructor}</td>
+                        <td>${item.room}</td>
+                    </tr>
+                `;
+            });
+
+            scheduleHtml += '</tbody></table>';
+
+            if (selectedAdmissionType === 'new') {
+                scheduleHtml += `
+                    <div class="alert alert-warning mt-3">
+                        <strong>Note for New Students:</strong> You will have a 3-day orientation program before regular classes begin.
+                    Note for New Students:</strong> You will have a 3-day orientation program before regular classes begin.
+                    </div>
+                `;
+            }
+
+            $('#scheduleContent').html(scheduleHtml);
+            goToStep(3);
+        }
+    </script>
+</body>
+</html>

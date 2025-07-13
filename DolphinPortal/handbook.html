@@ -1,0 +1,791 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dolphin School Portal - Student Handbook</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/placeholder.svg?height=32&width=32" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #1f4e79;
+            --secondary-blue: #2980b9;
+            --maroon: #8b1538;
+            --light-maroon: #a91d42;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .handbook-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .handbook-header {
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .handbook-sidebar {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .handbook-content {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .toc-item {
+            display: block;
+            padding: 12px 15px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+            .toc-item:hover {
+                background: var(--light-gray);
+                color: var(--secondary-blue);
+                text-decoration: none;
+                border-left-color: var(--secondary-blue);
+            }
+
+            .toc-item.active {
+                background: #f8f9ff;
+                color: var(--secondary-blue);
+                border-left-color: var(--secondary-blue);
+                font-weight: 600;
+            }
+
+        .section {
+            margin-bottom: 40px;
+            display: none;
+        }
+
+            .section.active {
+                display: block;
+            }
+
+            .section h2 {
+                color: var(--primary-blue);
+                border-bottom: 3px solid var(--secondary-blue);
+                padding-bottom: 15px;
+                margin-bottom: 30px;
+            }
+
+            .section h3 {
+                color: var(--maroon);
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            .section h4 {
+                color: var(--secondary-blue);
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+
+        .policy-box {
+            background: #f8f9ff;
+            border-left: 4px solid var(--secondary-blue);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .important-box {
+            background: #f8d7da;
+            border-left: 4px solid var(--danger);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .back-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .back-btn:hover {
+                background: var(--secondary-blue);
+                color: var(--white);
+                text-decoration: none;
+                transform: translateY(-2px);
+            }
+
+        .download-btn {
+            background: var(--success);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+            .download-btn:hover {
+                background: #2ecc71;
+                transform: translateY(-2px);
+            }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+            .search-input:focus {
+                border-color: var(--secondary-blue);
+                outline: none;
+                box-shadow: 0 0 0 0.2rem rgba(41, 128, 185, 0.25);
+            }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .handbook-container {
+                padding: 10px;
+            }
+
+            .handbook-header {
+                padding: 30px 20px;
+            }
+
+            .handbook-content {
+                padding: 20px;
+            }
+
+            .handbook-sidebar {
+                margin-bottom: 20px;
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="handbook-container">
+        <!-- Header -->
+        <div class="handbook-header">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">
+                    <i class="fas fa-book mr-3"></i>
+                    Student Handbook
+                </h2>
+                <div>
+                    <a href="dashboard.html" class="back-btn">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                    <button class="download-btn" onclick="downloadHandbook()">
+                        <i class="fas fa-download mr-2"></i>Download PDF
+                    </button>
+                </div>
+            </div>
+            <p class="mb-0 opacity-75">School Year 2025-2026 | Your guide to school policies and procedures</p>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="handbook-sidebar">
+                    <h6 class="mb-3">
+                        <i class="fas fa-list mr-2"></i>
+                        Table of Contents
+                    </h6>
+
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search handbook..." id="searchInput">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+
+                    <nav class="toc">
+                        <a href="#" class="toc-item active" data-section="welcome">
+                            <i class="fas fa-home mr-2"></i>Welcome
+                        </a>
+                        <a href="#" class="toc-item" data-section="mission">
+                            <i class="fas fa-bullseye mr-2"></i>Mission & Vision
+                        </a>
+                        <a href="#" class="toc-item" data-section="academic">
+                            <i class="fas fa-graduation-cap mr-2"></i>Academic Policies
+                        </a>
+                        <a href="#" class="toc-item" data-section="attendance">
+                            <i class="fas fa-calendar-check mr-2"></i>Attendance Policy
+                        </a>
+                        <a href="#" class="toc-item" data-section="conduct">
+                            <i class="fas fa-gavel mr-2"></i>Code of Conduct
+                        </a>
+                        <a href="#" class="toc-item" data-section="uniform">
+                            <i class="fas fa-tshirt mr-2"></i>Uniform Guidelines
+                        </a>
+                        <a href="#" class="toc-item" data-section="facilities">
+                            <i class="fas fa-building mr-2"></i>School Facilities
+                        </a>
+                        <a href="#" class="toc-item" data-section="safety">
+                            <i class="fas fa-shield-alt mr-2"></i>Safety & Security
+                        </a>
+                        <a href="#" class="toc-item" data-section="contact">
+                            <i class="fas fa-phone mr-2"></i>Contact Information
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-9">
+                <div class="handbook-content">
+                    <!-- Welcome Section -->
+                    <div class="section active" id="welcome">
+                        <h2>Welcome to Dolphin School</h2>
+
+                        <p class="lead">Dear Students and Parents,</p>
+
+                        <p>Welcome to Dolphin School! We are delighted to have you as part of our educational community. This handbook serves as your comprehensive guide to understanding our school's policies, procedures, and expectations.</p>
+
+                        <div class="success-box">
+                            <h5><i class="fas fa-star mr-2"></i>Our Commitment</h5>
+                            <p class="mb-0">We are committed to providing a safe, nurturing, and academically challenging environment where every student can reach their full potential.</p>
+                        </div>
+
+                        <h3>What You'll Find in This Handbook</h3>
+                        <ul>
+                            <li>School mission, vision, and core values</li>
+                            <li>Academic policies and grading systems</li>
+                            <li>Attendance and punctuality requirements</li>
+                            <li>Student code of conduct and disciplinary procedures</li>
+                            <li>Uniform and dress code guidelines</li>
+                            <li>School facilities and resources</li>
+                            <li>Safety and security protocols</li>
+                            <li>Important contact information</li>
+                        </ul>
+
+                        <p>Please take time to read through this handbook carefully with your parents or guardians. Understanding these guidelines will help ensure a successful and enjoyable school experience.</p>
+                    </div>
+
+                    <!-- Mission & Vision Section -->
+                    <div class="section" id="mission">
+                        <h2>Mission & Vision</h2>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="policy-box">
+                                    <h4><i class="fas fa-bullseye mr-2"></i>Our Mission</h4>
+                                    <p class="mb-0">To provide quality education that develops well-rounded individuals equipped with knowledge, skills, and values necessary for success in the 21st century.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="policy-box">
+                                    <h4><i class="fas fa-eye mr-2"></i>Our Vision</h4>
+                                    <p class="mb-0">To be a leading educational institution that nurtures innovative, responsible, and globally competitive citizens.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Core Values</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center p-3 border rounded mb-3">
+                                    <i class="fas fa-heart text-danger" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Respect</h5>
+                                    <p class="mb-0">Treating everyone with dignity and consideration</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center p-3 border rounded mb-3">
+                                    <i class="fas fa-handshake text-primary" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Integrity</h5>
+                                    <p class="mb-0">Acting with honesty and moral principles</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center p-3 border rounded mb-3">
+                                    <i class="fas fa-trophy text-warning" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Excellence</h5>
+                                    <p class="mb-0">Striving for the highest standards in all endeavors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Policies Section -->
+                    <div class="section" id="academic">
+                        <h2>Academic Policies</h2>
+
+                        <h3>Grading System</h3>
+                        <div class="policy-box">
+                            <h5>Grade Scale</h5>
+                            <ul>
+                                <li><strong>95-100:</strong> Excellent (A)</li>
+                                <li><strong>90-94:</strong> Very Good (B+)</li>
+                                <li><strong>85-89:</strong> Good (B)</li>
+                                <li><strong>80-84:</strong> Satisfactory (C+)</li>
+                                <li><strong>75-79:</strong> Fair (C)</li>
+                                <li><strong>Below 75:</strong> Needs Improvement (F)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Assessment Components</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light rounded">
+                                    <h4 class="text-primary">30%</h4>
+                                    <h6>Written Works</h6>
+                                    <small>Quizzes, tests, assignments</small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light rounded">
+                                    <h4 class="text-success">50%</h4>
+                                    <h6>Performance Tasks</h6>
+                                    <small>Projects, presentations, lab work</small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light rounded">
+                                    <h4 class="text-warning">20%</h4>
+                                    <h6>Quarterly Assessment</h6>
+                                    <small>Major examinations</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Homework Policy</h3>
+                        <div class="warning-box">
+                            <h5><i class="fas fa-clock mr-2"></i>Homework Guidelines</h5>
+                            <ul class="mb-0">
+                                <li>Homework should be completed on time and submitted as scheduled</li>
+                                <li>Late submissions may result in grade deductions</li>
+                                <li>Students are responsible for making up missed assignments</li>
+                                <li>Parents should monitor and support homework completion</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Attendance Policy Section -->
+                    <div class="section" id="attendance">
+                        <h2>Attendance Policy</h2>
+
+                        <div class="important-box">
+                            <h5><i class="fas fa-exclamation-triangle mr-2"></i>Attendance Requirement</h5>
+                            <p class="mb-0">Students must maintain at least 95% attendance rate to be eligible for promotion to the next grade level.</p>
+                        </div>
+
+                        <h3>Absence Procedures</h3>
+                        <div class="policy-box">
+                            <h5>Excused Absences</h5>
+                            <ul>
+                                <li>Illness (with medical certificate if more than 3 days)</li>
+                                <li>Family emergencies</li>
+                                <li>Religious observances</li>
+                                <li>Pre-approved educational trips</li>
+                            </ul>
+                        </div>
+
+                        <h3>Tardiness Policy</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="warning-box">
+                                    <h6>Consequences of Tardiness</h6>
+                                    <ul class="mb-0">
+                                        <li><strong>3 tardies:</strong> Verbal warning</li>
+                                        <li><strong>5 tardies:</strong> Parent conference</li>
+                                        <li><strong>7 tardies:</strong> Disciplinary action</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="success-box">
+                                    <h6>Perfect Attendance Rewards</h6>
+                                    <ul class="mb-0">
+                                        <li>Monthly recognition certificate</li>
+                                        <li>Special privileges and activities</li>
+                                        <li>Year-end perfect attendance award</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code of Conduct Section -->
+                    <div class="section" id="conduct">
+                        <h2>Code of Conduct</h2>
+
+                        <h3>Expected Behavior</h3>
+                        <div class="success-box">
+                            <h5><i class="fas fa-thumbs-up mr-2"></i>Positive Behaviors</h5>
+                            <ul class="mb-0">
+                                <li>Show respect to teachers, staff, and fellow students</li>
+                                <li>Follow classroom and school rules</li>
+                                <li>Complete assignments and participate actively in class</li>
+                                <li>Use appropriate language and behavior</li>
+                                <li>Take care of school property and facilities</li>
+                            </ul>
+                        </div>
+
+                        <h3>Prohibited Behaviors</h3>
+                        <div class="important-box">
+                            <h5><i class="fas fa-ban mr-2"></i>Unacceptable Behaviors</h5>
+                            <ul class="mb-0">
+                                <li>Bullying, harassment, or discrimination</li>
+                                <li>Violence or threats of violence</li>
+                                <li>Cheating or academic dishonesty</li>
+                                <li>Vandalism or destruction of property</li>
+                                <li>Use of inappropriate language or gestures</li>
+                                <li>Bringing prohibited items to school</li>
+                            </ul>
+                        </div>
+
+                        <h3>Disciplinary Procedures</h3>
+                        <div class="policy-box">
+                            <h5>Progressive Discipline</h5>
+                            <ol>
+                                <li><strong>Verbal Warning:</strong> First offense discussion</li>
+                                <li><strong>Written Warning:</strong> Documentation of behavior</li>
+                                <li><strong>Parent Conference:</strong> Meeting with parents/guardians</li>
+                                <li><strong>Detention:</strong> After-school or lunch detention</li>
+                                <li><strong>Suspension:</strong> Temporary removal from school</li>
+                                <li><strong>Expulsion:</strong> Permanent removal (severe cases)</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Uniform Guidelines Section -->
+                    <div class="section" id="uniform">
+                        <h2>Uniform Guidelines</h2>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Regular Uniform</h3>
+                                <div class="policy-box">
+                                    <h5>Boys</h5>
+                                    <ul>
+                                        <li>White polo shirt with school logo</li>
+                                        <li>Navy blue pants</li>
+                                        <li>Black leather shoes</li>
+                                        <li>White socks</li>
+                                        <li>School ID with lanyard</li>
+                                    </ul>
+                                </div>
+
+                                <div class="policy-box">
+                                    <h5>Girls</h5>
+                                    <ul>
+                                        <li>White blouse with school logo</li>
+                                        <li>Navy blue skirt (knee-length)</li>
+                                        <li>Black leather shoes</li>
+                                        <li>White socks</li>
+                                        <li>School ID with lanyard</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h3>PE Uniform</h3>
+                                <div class="warning-box">
+                                    <h5>Physical Education</h5>
+                                    <ul>
+                                        <li>School PE shirt</li>
+                                        <li>Navy blue jogging pants</li>
+                                        <li>White rubber shoes</li>
+                                        <li>White socks</li>
+                                    </ul>
+                                </div>
+
+                                <h3>Grooming Standards</h3>
+                                <div class="policy-box">
+                                    <h5>General Guidelines</h5>
+                                    <ul class="mb-0">
+                                        <li>Hair should be neat and well-groomed</li>
+                                        <li>No extreme hairstyles or colors</li>
+                                        <li>Minimal jewelry allowed</li>
+                                        <li>No makeup for elementary students</li>
+                                        <li>Nails should be clean and trimmed</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- School Facilities Section -->
+                    <div class="section" id="facilities">
+                        <h2>School Facilities</h2>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center p-3 border rounded mb-3">
+                                    <i class="fas fa-book text-primary" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Library</h5>
+                                    <p class="mb-0">Open Monday-Friday, 7:00 AM - 5:00 PM</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center p-3 border rounded mb-3">
+                                    <i class="fas fa-flask text-success" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Science Lab</h5>
+                                    <p class="mb-0">Fully equipped for hands-on experiments</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center p-3 border rounded mb-3">
+                                    <i class="fas fa-desktop text-info" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Computer Lab</h5>
+                                    <p class="mb-0">30 computers with internet access</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Facility Usage Rules</h3>
+                        <div class="policy-box">
+                            <h5>General Guidelines</h5>
+                            <ul class="mb-0">
+                                <li>Students must be accompanied by a teacher or staff member</li>
+                                <li>Proper care and handling of equipment is required</li>
+                                <li>Report any damage or malfunction immediately</li>
+                                <li>Clean up after use and return materials to proper places</li>
+                                <li>Follow specific rules for each facility</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Safety & Security Section -->
+                    <div class="section" id="safety">
+                        <h2>Safety & Security</h2>
+
+                        <h3>Emergency Procedures</h3>
+                        <div class="important-box">
+                            <h5><i class="fas fa-exclamation-triangle mr-2"></i>Fire Drill Procedures</h5>
+                            <ol class="mb-0">
+                                <li>Stop all activities immediately when alarm sounds</li>
+                                <li>Follow teacher's instructions calmly</li>
+                                <li>Walk quickly and quietly to designated exit</li>
+                                <li>Assemble at assigned meeting point</li>
+                                <li>Wait for further instructions from teachers</li>
+                            </ol>
+                        </div>
+
+                        <h3>Visitor Policy</h3>
+                        <div class="policy-box">
+                            <h5>Visitor Requirements</h5>
+                            <ul class="mb-0">
+                                <li>All visitors must register at the main office</li>
+                                <li>Valid ID required for entry</li>
+                                <li>Visitor's pass must be worn at all times</li>
+                                <li>Visitors must be accompanied by school personnel</li>
+                                <li>Sign out before leaving the premises</li>
+                            </ul>
+                        </div>
+
+                        <h3>Health & Wellness</h3>
+                        <div class="success-box">
+                            <h5><i class="fas fa-heart mr-2"></i>Health Services</h5>
+                            <ul class="mb-0">
+                                <li>School nurse available during school hours</li>
+                                <li>First aid and basic medical care provided</li>
+                                <li>Emergency contact information must be updated</li>
+                                <li>Students with medical conditions must inform the school</li>
+                                <li>Medication administration requires proper documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <div class="section" id="contact">
+                        <h2>Contact Information</h2>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="policy-box">
+                                    <h5><i class="fas fa-school mr-2"></i>Main Office</h5>
+                                    <p>
+                                        <strong>Phone:</strong> +63 2 123 4567<br>
+                                        <strong>Email:</strong> info@dolphinschool.edu.ph<br>
+                                        <strong>Hours:</strong> Monday-Friday, 7:00 AM - 5:00 PM
+                                    </p>
+                                </div>
+
+                                <div class="policy-box">
+                                    <h5><i class="fas fa-user-tie mr-2"></i>Principal's Office</h5>
+                                    <p>
+                                        <strong>Dr. Maria Santos</strong><br>
+                                        <strong>Phone:</strong> +63 2 123 4568<br>
+                                        <strong>Email:</strong> principal@dolphinschool.edu.ph
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="policy-box">
+                                    <h5><i class="fas fa-file-alt mr-2"></i>Registrar's Office</h5>
+                                    <p>
+                                        <strong>Phone:</strong> +63 2 123 4569<br>
+                                        <strong>Email:</strong> registrar@dolphinschool.edu.ph<br>
+                                        <strong>Hours:</strong> Monday-Friday, 8:00 AM - 4:00 PM
+                                    </p>
+                                </div>
+
+                                <div class="policy-box">
+                                    <h5><i class="fas fa-credit-card mr-2"></i>Finance Office</h5>
+                                    <p>
+                                        <strong>Phone:</strong> +63 2 123 4570<br>
+                                        <strong>Email:</strong> finance@dolphinschool.edu.ph<br>
+                                        <strong>Hours:</strong> Monday-Friday, 8:00 AM - 4:00 PM
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="important-box">
+                            <h5><i class="fas fa-phone mr-2"></i>Emergency Contacts</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>School Emergency Line</strong><br>
+                                    +63 917 123 4567
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Medical Emergency</strong><br>
+                                    +63 917 123 4568
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Security Office</strong><br>
+                                    +63 917 123 4569
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Table of contents navigation
+            $('.toc-item').click(function(e) {
+                e.preventDefault();
+
+                $('.toc-item').removeClass('active');
+                $(this).addClass('active');
+
+                $('.section').removeClass('active');
+                const sectionId = $(this).data('section');
+                $('#' + sectionId).addClass('active');
+
+                // Scroll to top of content
+                $('.handbook-content').scrollTop(0);
+            });
+
+            // Search functionality
+            $('#searchInput').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+
+                if (searchTerm === '') {
+                    $('.toc-item').show();
+                    return;
+                }
+
+                $('.toc-item').each(function() {
+                    const text = $(this).text().toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+
+        function downloadHandbook() {
+            alert('Downloading Student Handbook PDF...\n\nThis would normally download the complete handbook as a PDF file.');
+        }
+    </script>
+</body>
+</html>
