@@ -74,6 +74,23 @@
             color: var(--white) !important;
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+            .header-actions .position-relative {
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 50%;
+                transition: background-color 0.3s ease;
+            }
+
+                .header-actions .position-relative:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
         .sidebar {
             background: var(--white);
             width: 280px;
@@ -84,10 +101,13 @@
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
             overflow-y: auto;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-wrapper {
             padding: 20px 0;
+            flex: 1;
         }
 
         .nav-primary {
@@ -98,6 +118,7 @@
 
         .nav-item {
             margin: 5px 15px;
+            width: calc(100% - 30px);
         }
 
         .nav-link {
@@ -109,6 +130,9 @@
             border-radius: 10px;
             transition: all 0.3s ease;
             font-weight: 500;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
         }
 
             .nav-link:hover, .nav-link.active {
@@ -119,6 +143,121 @@
             }
 
             .nav-link i {
+                margin-right: 15px;
+                font-size: 1.2rem;
+                width: 20px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .nav-link span {
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+        /* Mobile Sidebar Profile Section */
+        .mobile-sidebar-profile {
+            display: none;
+            padding: 20px 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .mobile-profile-info {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .mobile-profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .mobile-profile-details h6 {
+            margin: 0;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .mobile-profile-details p {
+            margin: 0;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .mobile-notifications {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .mobile-notification-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            position: relative;
+        }
+
+            .mobile-notification-item:hover {
+                background: #e9ecef;
+                transform: scale(1.05);
+            }
+
+            .mobile-notification-item i {
+                font-size: 1.2rem;
+                color: var(--primary-blue);
+                margin-bottom: 5px;
+            }
+
+            .mobile-notification-item span {
+                font-size: 0.7rem;
+                color: #666;
+                font-weight: 500;
+            }
+
+        /* Sidebar Footer for Logout */
+        .sidebar-footer {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #dc3545;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 100%;
+        }
+
+            .logout-link:hover {
+                background: #dc3545;
+                color: var(--white);
+                text-decoration: none;
+                transform: translateX(5px);
+            }
+
+            .logout-link i {
                 margin-right: 15px;
                 font-size: 1.2rem;
                 width: 20px;
@@ -368,6 +507,7 @@
             .sidebar {
                 transform: translateX(-100%);
                 z-index: 1001;
+                width: 300px;
             }
 
                 .sidebar.show {
@@ -386,6 +526,16 @@
                 border: none;
                 color: var(--white);
                 font-size: 1.5rem;
+                padding: 8px;
+            }
+
+            /* Hide desktop header actions, show in sidebar */
+            .header-actions {
+                display: none;
+            }
+
+            .mobile-sidebar-profile {
+                display: block;
             }
 
             .page-header {
@@ -431,6 +581,17 @@
             .logo-header img {
                 width: 35px;
                 height: 35px;
+            }
+
+            /* Ensure consistent sidebar item widths */
+            .nav-item {
+                margin: 5px 10px;
+                width: calc(100% - 20px);
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                border-radius: 8px;
             }
         }
 
@@ -491,6 +652,27 @@
             .navbar-brand {
                 font-size: 1rem;
             }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .mobile-profile-info {
+                padding: 12px;
+            }
+
+            .mobile-profile-avatar {
+                width: 45px;
+                height: 45px;
+            }
+
+            .mobile-notifications {
+                gap: 10px;
+            }
+
+            .mobile-notification-item {
+                padding: 10px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -504,6 +686,10 @@
 
             .mobile-stat-change {
                 font-size: 0.65rem;
+            }
+
+            .sidebar {
+                width: 260px;
             }
         }
 
@@ -545,17 +731,18 @@
                     <span class="navbar-brand">Dolphin School Portal</span>
                 </div>
 
-                <div class="d-flex align-items-center gap-3">
+                <!-- Desktop Header Actions -->
+                <div class="header-actions">
                     <div class="position-relative">
-                        <i class="fas fa-bell" style="font-size: 1.2rem; cursor: pointer;"></i>
+                        <i class="fas fa-bell" style="font-size: 1.2rem;"></i>
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="position-relative">
-                        <i class="fas fa-envelope" style="font-size: 1.2rem; cursor: pointer;"></i>
+                        <i class="fas fa-envelope" style="font-size: 1.2rem;"></i>
                         <span class="notification-badge">5</span>
                     </div>
                     <div class="dropdown">
-                        <img src="/placeholder.svg?height=35&width=35" alt="Profile" class="rounded-circle" style="cursor: pointer;" data-toggle="dropdown">
+                        <img src="/public/img/peter11s.png?height=35&width=35" alt="Profile" class="rounded-circle" style="cursor: pointer;" data-toggle="dropdown">
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="profile.html"><i class="fas fa-user mr-2"></i>Profile</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Settings</a>
@@ -569,6 +756,17 @@
 
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
+            <!-- Mobile Profile Section -->
+            <div class="mobile-sidebar-profile">
+                <div class="mobile-profile-info">
+                    <img src="/public/img/peter11s.png?height=50&width=50" alt="Profile" class="mobile-profile-avatar">
+                    <div class="mobile-profile-details">
+                        <h6>Peter John</h6>
+                        <p>Grade 5 - Section A</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="sidebar-wrapper">
                 <ul class="nav nav-primary">
                     <li class="nav-item">
@@ -644,6 +842,14 @@
                         </a>
                     </li>
                 </ul>
+            </div>
+
+            <!-- Sidebar Footer with Logout -->
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
             </div>
         </div>
 
@@ -956,6 +1162,14 @@
 
         function showMore() {
             alert('More features coming soon!');
+        }
+
+        function showNotifications() {
+            alert('Notifications: 3 new items');
+        }
+
+        function showMessages() {
+            alert('Messages: 5 new messages');
         }
 
         // Close sidebar when clicking outside on mobile
