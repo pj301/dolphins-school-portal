@@ -10,9 +10,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
     <script>
         WebFont.load({
-            google: {"families":["Lato:300,400,700,900"]},
-            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css']},
-            active: function() {
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'] },
+            active: function () {
                 sessionStorage.fonts = true;
             }
         });
@@ -30,6 +30,7 @@
             --light-maroon: #a91d42;
             --white: #ffffff;
             --light-gray: #f8f9fa;
+            --gcash-blue: #007bff;
         }
 
         body {
@@ -168,14 +169,91 @@
             margin-bottom: 15px;
         }
 
-        .quick-actions {
+        /* Mobile Stats Cards - Compact Layout */
+        .mobile-stats-container {
+            display: none;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .mobile-stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .mobile-stat-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+            .mobile-stat-item:hover {
+                background: #e9ecef;
+                transform: scale(1.02);
+            }
+
+        .mobile-stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--white);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .mobile-stat-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mobile-stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .mobile-stat-label {
+            font-size: 0.75rem;
+            color: #666;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .mobile-stat-change {
+            font-size: 0.7rem;
+            margin-top: 2px;
+        }
+
+        /* Desktop Quick Actions */
+        .quick-actions-desktop {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 30px;
         }
 
-        .action-card {
+        .action-card-desktop {
             background: var(--white);
             border-radius: 15px;
             padding: 25px;
@@ -186,12 +264,12 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
-            .action-card:hover {
+            .action-card-desktop:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             }
 
-        .action-icon {
+        .action-icon-desktop {
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -201,6 +279,69 @@
             font-size: 2rem;
             color: var(--white);
             margin: 0 auto 20px;
+        }
+
+        /* Mobile Quick Actions - GCash Style */
+        .quick-actions-mobile {
+            display: none;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .mobile-features-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .mobile-action-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px 5px;
+            border-radius: 10px;
+        }
+
+            .mobile-action-card:hover {
+                background: #f8f9fa;
+                transform: scale(1.05);
+            }
+
+        .mobile-action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .mobile-action-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.2;
+            max-width: 60px;
         }
 
         .notification-badge {
@@ -222,6 +363,7 @@
             display: none;
         }
 
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -246,9 +388,122 @@
                 font-size: 1.5rem;
             }
 
-            .quick-actions {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            .page-header {
+                padding: 20px 15px;
+                margin-bottom: 15px;
+            }
+
+                .page-header h2 {
+                    font-size: 1.3rem;
+                    margin-bottom: 5px;
+                }
+
+                .page-header p {
+                    font-size: 0.85rem;
+                }
+
+                .page-header .text-right {
+                    display: none !important;
+                }
+
+            /* Hide desktop stats, show mobile stats */
+            .row {
+                display: none;
+            }
+
+            .mobile-stats-container {
+                display: block;
+            }
+
+            /* Hide desktop actions, show mobile actions */
+            .quick-actions-desktop {
+                display: none;
+            }
+
+            .quick-actions-mobile {
+                display: block;
+            }
+
+            .navbar-brand {
+                font-size: 1.1rem;
+            }
+
+            .logo-header img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-panel {
+                padding: 10px;
+            }
+
+            .page-header {
+                padding: 15px 12px;
+            }
+
+                .page-header h2 {
+                    font-size: 1.2rem;
+                }
+
+            .mobile-stats-container {
+                padding: 15px;
+            }
+
+            .mobile-stats-grid {
+                gap: 12px;
+            }
+
+            .mobile-stat-item {
+                padding: 12px;
+            }
+
+            .mobile-stat-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+                margin-right: 10px;
+            }
+
+            .mobile-stat-value {
+                font-size: 1rem;
+            }
+
+            .mobile-stat-label {
+                font-size: 0.7rem;
+            }
+
+            .mobile-features-grid {
                 gap: 15px;
+            }
+
+            .mobile-action-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .mobile-action-label {
+                font-size: 10px;
+            }
+
+            .navbar-brand {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .mobile-stat-value {
+                font-size: 0.95rem;
+            }
+
+            .mobile-stat-label {
+                font-size: 0.65rem;
+            }
+
+            .mobile-stat-change {
+                font-size: 0.65rem;
             }
         }
 
@@ -397,17 +652,17 @@
             <div class="page-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h2 class="mb-2">Welcome back, Peter John!</h2>
+                        <h2 class="mb-2">Welcome back, Maria Isabel!</h2>
                         <p class="mb-0 opacity-75">Grade 5 - Section A | School Year 2025-2026</p>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right d-none d-md-block">
                         <h4 class="mb-0" id="currentDate"></h4>
                         <p class="mb-0 opacity-75" id="currentTime"></p>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats Cards -->
+            <!-- Desktop Stats Cards -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="stats-card">
@@ -454,54 +709,206 @@
                 </div>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <div class="action-card" onclick="window.location.href='grades.html'">
-                    <div class="action-icon" style="background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));">
+            <!-- Mobile Stats Cards - Compact Layout -->
+            <div class="mobile-stats-container">
+                <div class="mobile-stats-header">
+                    <h6 class="mb-0 font-weight-bold">Academic Overview</h6>
+                    <small class="text-muted">This Quarter</small>
+                </div>
+
+                <div class="mobile-stats-grid">
+                    <div class="mobile-stat-item" onclick="window.location.href='grades.html'">
+                        <div class="mobile-stat-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="mobile-stat-content">
+                            <div class="mobile-stat-value">92.5%</div>
+                            <div class="mobile-stat-label">Overall Grade</div>
+                            <div class="mobile-stat-change text-success">
+                                <i class="fas fa-arrow-up"></i> +2.5%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-stat-item" onclick="window.location.href='schedule.html'">
+                        <div class="mobile-stat-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="mobile-stat-content">
+                            <div class="mobile-stat-value">98%</div>
+                            <div class="mobile-stat-label">Attendance</div>
+                            <div class="mobile-stat-change text-info">43/44 days</div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-stat-item" onclick="window.location.href='progress.html'">
+                        <div class="mobile-stat-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="mobile-stat-content">
+                            <div class="mobile-stat-value">8/10</div>
+                            <div class="mobile-stat-label">Assignments</div>
+                            <div class="mobile-stat-change text-warning">2 pending</div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-stat-item" onclick="window.location.href='messaging.html'">
+                        <div class="mobile-stat-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="mobile-stat-content">
+                            <div class="mobile-stat-value">5</div>
+                            <div class="mobile-stat-label">Messages</div>
+                            <div class="mobile-stat-change text-danger">3 from teachers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Quick Actions -->
+            <div class="quick-actions-desktop">
+                <div class="action-card-desktop" onclick="window.location.href='grades.html'">
+                    <div class="action-icon-desktop" style="background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h5>View Grades</h5>
                     <p class="text-muted">Check your latest grades and academic performance</p>
                 </div>
 
-                <div class="action-card" onclick="window.location.href='schedule.html'">
-                    <div class="action-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                <div class="action-card-desktop" onclick="window.location.href='schedule.html'">
+                    <div class="action-icon-desktop" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
                     <h5>Class Schedule</h5>
                     <p class="text-muted">View your daily class schedule and upcoming events</p>
                 </div>
 
-                <div class="action-card" onclick="window.location.href='messaging.html'">
-                    <div class="action-icon" style="background: linear-gradient(135deg, var(--maroon), var(--light-maroon));">
+                <div class="action-card-desktop" onclick="window.location.href='messaging.html'">
+                    <div class="action-icon-desktop" style="background: linear-gradient(135deg, var(--maroon), var(--light-maroon));">
                         <i class="fas fa-comments"></i>
                     </div>
                     <h5>Messages</h5>
                     <p class="text-muted">Chat with teachers and receive announcements</p>
                 </div>
 
-                <div class="action-card" onclick="window.location.href='billing.html'">
-                    <div class="action-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                <div class="action-card-desktop" onclick="window.location.href='billing.html'">
+                    <div class="action-icon-desktop" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
                         <i class="fas fa-credit-card"></i>
                     </div>
                     <h5>Billing</h5>
                     <p class="text-muted">View and pay your tuition and other fees</p>
                 </div>
 
-                <div class="action-card" onclick="window.location.href='progress.html'">
-                    <div class="action-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                <div class="action-card-desktop" onclick="window.location.href='progress.html'">
+                    <div class="action-icon-desktop" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
                         <i class="fas fa-chart-bar"></i>
                     </div>
                     <h5>Progress Report</h5>
                     <p class="text-muted">Track your academic progress and achievements</p>
                 </div>
 
-                <div class="action-card" onclick="window.location.href='documents.html'">
-                    <div class="action-icon" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
+                <div class="action-card-desktop" onclick="window.location.href='documents.html'">
+                    <div class="action-icon-desktop" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <h5>Documents</h5>
                     <p class="text-muted">Request official documents and certificates</p>
+                </div>
+            </div>
+
+            <!-- Mobile Quick Actions - GCash Style -->
+            <div class="quick-actions-mobile">
+                <div class="mobile-features-header">
+                    <h6 class="mb-0 font-weight-bold">Quick Actions</h6>
+                    <small class="text-muted">View All</small>
+                </div>
+
+                <div class="mobile-features-grid">
+                    <div class="mobile-action-card" onclick="window.location.href='grades.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="mobile-action-label">View Grades</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='schedule.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="mobile-action-label">Schedule</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='messaging.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, var(--maroon), var(--light-maroon));">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="mobile-action-label">Messages</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='billing.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="mobile-action-label">Billing</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='progress.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="mobile-action-label">Progress</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='documents.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="mobile-action-label">Documents</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='profile.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #e67e22, #d35400);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="mobile-action-label">Profile</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='handbook.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #16a085, #1abc9c);">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="mobile-action-label">Handbook</div>
+                    </div>
+                </div>
+
+                <div class="mobile-features-grid">
+                    <div class="mobile-action-card" onclick="window.location.href='tracking.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #c0392b, #e74c3c);">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="mobile-action-label">Tracking</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='evaluation.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #f1c40f, #f39c12);">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="mobile-action-label">Evaluation</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="window.location.href='admission.html'">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #8e44ad, #9b59b6);">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="mobile-action-label">Admission</div>
+                    </div>
+
+                    <div class="mobile-action-card" onclick="showMore()">
+                        <div class="mobile-action-icon" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d);">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                        <div class="mobile-action-label">More</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -512,16 +919,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             updateDateTime();
             setInterval(updateDateTime, 1000);
 
             // Add animation delays
-            $('.stats-card').each(function(index) {
+            $('.stats-card').each(function (index) {
                 $(this).css('animation-delay', (index * 0.1) + 's');
             });
 
-            $('.action-card').each(function(index) {
+            $('.action-card-desktop').each(function (index) {
                 $(this).css('animation-delay', (index * 0.1 + 0.5) + 's');
             });
         });
@@ -547,8 +954,12 @@
             $('#sidebar').toggleClass('show');
         }
 
+        function showMore() {
+            alert('More features coming soon!');
+        }
+
         // Close sidebar when clicking outside on mobile
-        $(document).click(function(e) {
+        $(document).click(function (e) {
             if ($(window).width() <= 768) {
                 if (!$(e.target).closest('#sidebar, .mobile-toggle').length) {
                     $('#sidebar').removeClass('show');
