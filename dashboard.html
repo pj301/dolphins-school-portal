@@ -87,8 +87,17 @@
                 transition: background-color 0.3s ease;
             }
 
-                .header-actions .position-relative:hover {
-                    background-color: rgba(255, 255, 255, 0.1);
+            /* Desktop Header Profile Image */
+            .header-actions .dropdown img {
+                width: 32px;
+                height: 32px;
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                transition: all 0.3s ease;
+            }
+
+                .header-actions .dropdown img:hover {
+                    border-color: rgba(255, 255, 255, 0.4);
+                    transform: scale(1.05);
                 }
 
         .sidebar {
@@ -635,6 +644,10 @@
                 font-size: 0.7rem;
             }
 
+            .mobile-stat-change {
+                font-size: 0.7rem;
+            }
+
             .mobile-features-grid {
                 gap: 15px;
             }
@@ -742,7 +755,7 @@
                         <span class="notification-badge">5</span>
                     </div>
                     <div class="dropdown">
-                        <img src="/public/img/peter11s.png?height=35&width=35" alt="Profile" class="rounded-circle" style="cursor: pointer;" data-toggle="dropdown">
+                        <img src="/public/img/peter11s.png?height=32&width=32" alt="Profile" class="rounded-circle" style="cursor: pointer;" data-toggle="dropdown">
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="profile.html"><i class="fas fa-user mr-2"></i>Profile</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Settings</a>
@@ -759,10 +772,23 @@
             <!-- Mobile Profile Section -->
             <div class="mobile-sidebar-profile">
                 <div class="mobile-profile-info">
-                    <img src="/public/img/peter11s.png?height=50&width=50" alt="Profile" class="mobile-profile-avatar">
+                    <img src="/placeholder.svg?height=50&width=50" alt="Profile" class="mobile-profile-avatar">
                     <div class="mobile-profile-details">
                         <h6>Peter John</h6>
                         <p>Grade 5 - Section A</p>
+                    </div>
+                </div>
+
+                <div class="mobile-notifications">
+                    <div class="mobile-notification-item" onclick="showNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        <div class="notification-badge">3</div>
+                    </div>
+                    <div class="mobile-notification-item" onclick="showMessages()">
+                        <i class="fas fa-envelope"></i>
+                        <span>Messages</span>
+                        <div class="notification-badge">5</div>
                     </div>
                 </div>
             </div>
